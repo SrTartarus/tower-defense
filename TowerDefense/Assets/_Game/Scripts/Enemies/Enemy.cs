@@ -16,6 +16,8 @@ namespace Game.Enemies
         [SerializeField]
         private int rotationSpeed = 4;
 
+        private float health = 100f;
+
         List<Transform> waypoints = new List<Transform>();
         private int currentWaypointIndex = 1;
 
@@ -33,6 +35,15 @@ namespace Game.Enemies
         {
             Movement();
             LookAt();
+        }
+
+        public void Damage(float damage)
+        {
+            health -= damage;
+            if (health <= 0.0f)
+            {
+                Destroy(gameObject);
+            }
         }
 
         public void Dead()
