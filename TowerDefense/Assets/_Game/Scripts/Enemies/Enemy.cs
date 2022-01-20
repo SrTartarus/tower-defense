@@ -1,5 +1,6 @@
-using System.Collections.Generic;
 using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
 
 using Game.Enemies.Interfaces;
 
@@ -9,19 +10,27 @@ namespace Game.Enemies
     {
         #region FIELDS
 
+        private const float MagicDuration = 1f;
+
         [SerializeField]
-        private int movementSpeed = 4;
+        private float movementSpeed = 4;
         [SerializeField]
-        private int rotationSpeed = 4;
+        private float rotationSpeed = 4;
 
         private float health = 100f;
 
+        private float defaultMovementSpeed;
         private List<Transform> waypoints = new List<Transform>();
         private int currentWaypointIndex = 1;
 
         #endregion
 
         #region BEHAVIORS
+
+        private void Start()
+        {
+            defaultMovementSpeed = movementSpeed;
+        }
 
         private void Update()
         {
@@ -39,9 +48,20 @@ namespace Game.Enemies
         {
             health -= damage;
             if (health <= 0.0f)
-            {
                 Destroy(gameObject);
-            }
+        }
+
+        public void AddMagicEffect()
+        {
+            StopAllCoroutines();
+            StartCoroutine(StartMagicEffect());
+        }
+
+        private IEnumerator StartMagicEffect()
+        {
+            movementSpeed = defaultMovementSpeed / 2;
+            yield return new WaitForSeconds(MagicDuration);
+            movementSpeed = defaultMovementSpeed;
         }
 
         private void Movement()
