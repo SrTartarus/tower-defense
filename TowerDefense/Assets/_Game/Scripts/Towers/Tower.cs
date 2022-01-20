@@ -18,7 +18,7 @@ namespace Game.Towers
         [SerializeField]
         private float sphereRadius = 1f;
 
-        private float shootRate = 0.05f;
+        private float shootRate = 0.1f;
         private float shootTimer;
 
         private void Update()
@@ -32,8 +32,8 @@ namespace Game.Towers
                 Vector3 direction = transform.forward;
                 if (Physics.SphereCast(origin, sphereRadius, direction, out hit))
                 {
-                    ArrowProjectile projectile = Instantiate(assetManager.ProjectileArrowPrefab, transform.position, Quaternion.identity).GetComponent<ArrowProjectile>();
-                    projectile.SetTarget(hit.transform.GetComponent<Enemy>());
+                    GameObject projectile = Instantiate(assetManager.ProjectileArrowPrefab, transform.position, Quaternion.identity);
+                    projectile.GetComponent<ArrowProjectile>().SetTarget(hit.transform.GetComponent<Enemy>());
                 }
             }
         }

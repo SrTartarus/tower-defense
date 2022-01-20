@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Game.Managers
@@ -9,12 +7,17 @@ namespace Game.Managers
         #region FIELDS
 
         [SerializeField]
+        private GameObject enemyPrefab;
+
+        [SerializeField]
         private GameObject projectileArrowPrefab;
+        
 
         #endregion
 
         #region PROPERTIES
 
+        public GameObject EnemyPrefab { get => enemyPrefab; }
         public GameObject ProjectileArrowPrefab { get => projectileArrowPrefab; }
 
         #endregion

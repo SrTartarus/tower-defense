@@ -10,8 +10,6 @@ namespace Game.Enemies
         #region FIELDS
 
         [SerializeField]
-        private Transform waypointsContainer;
-        [SerializeField]
         private int movementSpeed = 4;
         [SerializeField]
         private int rotationSpeed = 4;
@@ -25,16 +23,16 @@ namespace Game.Enemies
 
         #region BEHAVIORS
 
-        private void Start()
-        {
-            foreach (Transform waypoint in waypointsContainer.transform)
-                waypoints.Add(waypoint);
-        }
-
         private void Update()
         {
             Movement();
             LookAt();
+        }
+
+        public void SetWaypointsTrace(Transform waypointsContainer)
+        {
+            foreach (Transform waypoint in waypointsContainer.transform)
+                waypoints.Add(waypoint);
         }
 
         public void Damage(float damage)
@@ -44,11 +42,6 @@ namespace Game.Enemies
             {
                 Destroy(gameObject);
             }
-        }
-
-        public void Dead()
-        {
-            throw new System.NotImplementedException();
         }
 
         private void Movement()
