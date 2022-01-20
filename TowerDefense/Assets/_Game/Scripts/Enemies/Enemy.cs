@@ -16,7 +16,7 @@ namespace Game.Enemies
 
         private float health = 100f;
 
-        List<Transform> waypoints = new List<Transform>();
+        private List<Transform> waypoints = new List<Transform>();
         private int currentWaypointIndex = 1;
 
         #endregion
