@@ -12,12 +12,11 @@ namespace Game.Enemies
 
         private const float MagicDuration = 1f;
 
+        [Header("PROPERTIES")]
+        [SerializeField]
+        private float health = 100f;
         [SerializeField]
         private float movementSpeed = 4;
-        [SerializeField]
-        private float rotationSpeed = 4;
-
-        private float health = 100f;
 
         private float defaultMovementSpeed;
         private List<Transform> waypoints = new List<Transform>();
@@ -35,7 +34,6 @@ namespace Game.Enemies
         private void Update()
         {
             Movement();
-            LookAt();
         }
 
         public void SetWaypointsTrace(Transform waypointsContainer)
@@ -74,13 +72,6 @@ namespace Game.Enemies
 
                 currentWaypointIndex++;
             }
-        }
-
-        private void LookAt()
-        {
-            Vector3 direction = waypoints[currentWaypointIndex].position - transform.position;
-            Quaternion lookRotation = Quaternion.LookRotation(direction);
-            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, rotationSpeed * Time.deltaTime);
         }
 
         #endregion
