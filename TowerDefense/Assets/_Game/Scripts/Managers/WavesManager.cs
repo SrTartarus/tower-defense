@@ -1,5 +1,9 @@
 using UnityEngine;
+using UnityEngine.Events;
 using System.Collections;
+using System.Collections.Generic;
+
+using Zenject;
 
 using Game.Enemies;
 
@@ -9,17 +13,41 @@ namespace Game.Managers
     {
         #region FIELDS
 
+        [Inject] private GameManager gameManager;
+
+        [Header("SETTINGS")]
         [SerializeField]
-        private GameObject enemyPrefab;
+        private List<GameObject> enemiesPrefab;
 
         [SerializeField]
         private Transform waypointsContainer;
 
         [SerializeField]
-        private float timeBetweenWaves = 5f;
+        private Transform enemiesContainer;
 
-        private float countdown = 2f;
-        private int waveIndex = 1;
+        [Header("PROPERTIES")]
+        [SerializeField]
+        private float timeBetweenWaves = 10f;
+
+        [SerializeField]
+        private int maximumWaves = 20;
+
+        private float countdown = 10f;
+        private int wavesNumber = 1;
+        private bool isFirstWaveStarted = false;
+        private bool isAllWavesCompleted = false;
+
+        #endregion
+
+        #region EVENTS
+
+        public event UnityAction<int> onWaveStarted;
+
+        #endregion
+
+        #region PROPERTIES
+
+        public int WaveCountDown { get => (int)countdown; }
 
         #endregion
 
@@ -27,27 +55,40 @@ namespace Game.Managers
 
         private void Update()
         {
+            if (isAllWavesCompleted)
+                return;
+
+            if (enemiesContainer.childCount <= 0 && isFirstWaveStarted && wavesNumber >= maximumWaves)
+            {
+                isAllWavesCompleted = true;
+                gameManager.PlayerWon();
+            }
+
             countdown -= Time.deltaTime;
             if (countdown <= 0f)
             {
                 countdown = timeBetweenWaves;
+                onWaveStarted?.Invoke(wavesNumber);
                 StartCoroutine(SpawnWave());
             }
         }
 
         private IEnumerator SpawnWave()
         {
-            waveIndex++;
-            for (int i = 0; i < waveIndex; i++)
+            isFirstWaveStarted = true;
+            for (int i = 0; i < wavesNumber; i++)
             {
                 SpawnEnemy();
                 yield return new WaitForSeconds(0.5f);
             }
+
+            wavesNumber++;
         }
 
         private void SpawnEnemy()
         {
-            GameObject enemy = Instantiate(enemyPrefab, waypointsContainer.GetChild(0).position, Quaternion.identity);
+            var random = Random.Range(0, enemiesPrefab.Count);
+            GameObject enemy = Instantiate(enemiesPrefab[random], waypointsContainer.GetChild(0).position, Quaternion.identity, enemiesContainer);
             enemy.GetComponent<Enemy>().SetWaypointsTrace(waypointsContainer);
         }
 

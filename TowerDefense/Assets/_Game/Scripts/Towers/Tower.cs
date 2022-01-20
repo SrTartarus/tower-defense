@@ -17,6 +17,9 @@ namespace Game.Towers
         [SerializeField]
         private float shootRate = 0.1f;
 
+        [SerializeField]
+        private LayerMask layerMask;
+
         private float shootTimer;
 
         private void Update()
@@ -28,7 +31,7 @@ namespace Game.Towers
                 RaycastHit hit;
                 Vector3 origin = transform.position;
                 Vector3 direction = transform.forward;
-                if (Physics.SphereCast(origin, sphereRadius, direction, out hit))
+                if (Physics.SphereCast(origin, sphereRadius, direction, out hit, 10, layerMask))
                     CreateProjectile(hit.transform);
             }
         }

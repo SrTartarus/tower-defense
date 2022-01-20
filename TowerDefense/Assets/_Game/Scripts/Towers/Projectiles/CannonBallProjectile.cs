@@ -27,7 +27,6 @@ namespace Game.Towers.Projectiles
 
         protected override void FollowTarget()
         {
-            
             rigidBody.velocity = BallisticVelocityVector(EnemyPosition, 40);
         }
 
