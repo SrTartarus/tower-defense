@@ -1,24 +1,22 @@
 using UnityEngine;
 
-using Zenject;
-
-using Game.Managers;
 using Game.Enemies;
-using Game.Towers.Interfaces;
-using Game.Towers.Projectiles;
+using Game.Towers.Projectiles.Abstracts;
 
 namespace Game.Towers
 {
-    public class Tower : MonoBehaviour, ITower
+    public class Tower : MonoBehaviour
     {
         #region BEHAVIORS
 
-        [Inject] private AssetsManager assetManager;
+        [SerializeField]
+        private GameObject projectilePrefab;
 
         [SerializeField]
         private float sphereRadius = 1f;
-
+        [SerializeField]
         private float shootRate = 0.1f;
+
         private float shootTimer;
 
         private void Update()
@@ -31,16 +29,14 @@ namespace Game.Towers
                 Vector3 origin = transform.position;
                 Vector3 direction = transform.forward;
                 if (Physics.SphereCast(origin, sphereRadius, direction, out hit))
-                {
-                    GameObject projectile = Instantiate(assetManager.ProjectileArrowPrefab, transform.position, Quaternion.identity);
-                    projectile.GetComponent<ArrowProjectile>().SetTarget(hit.transform.GetComponent<Enemy>());
-                }
+                    CreateProjectile(hit.transform);
             }
         }
 
-        public void Fire()
+        private void CreateProjectile(Transform enemy)
         {
-            throw new System.NotImplementedException();
+            GameObject projectile = Instantiate(projectilePrefab, transform.GetChild(0).position, Quaternion.identity);
+            projectile.GetComponent<Projectile>().SetTarget(enemy.GetComponent<Enemy>());
         }
 
         #endregion

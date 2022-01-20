@@ -1,8 +1,6 @@
 using UnityEngine;
 using System.Collections;
 
-using Zenject;
-
 using Game.Enemies;
 
 namespace Game.Managers
@@ -11,7 +9,8 @@ namespace Game.Managers
     {
         #region FIELDS
 
-        [Inject] private AssetsManager assetsManager;
+        [SerializeField]
+        private GameObject enemyPrefab;
 
         [SerializeField]
         private Transform waypointsContainer;
@@ -48,7 +47,7 @@ namespace Game.Managers
 
         private void SpawnEnemy()
         {
-            GameObject enemy = Instantiate(assetsManager.EnemyPrefab, waypointsContainer.GetChild(0).position, Quaternion.identity);
+            GameObject enemy = Instantiate(enemyPrefab, waypointsContainer.GetChild(0).position, Quaternion.identity);
             enemy.GetComponent<Enemy>().SetWaypointsTrace(waypointsContainer);
         }
 
