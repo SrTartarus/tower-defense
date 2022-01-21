@@ -127,9 +127,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1503e2308102146428c5bd9bd497c8c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 75
+  health: 50
   movementSpeed: 2
-  enemyCoins: 20
+  enemyCoins: 40
 --- !u!114 &6164985903960683118
 MonoBehaviour:
   m_ObjectHideFlags: 0

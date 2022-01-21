@@ -129,7 +129,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 100
   movementSpeed: 3
-  enemyCoins: 25
+  enemyCoins: 30
 --- !u!114 &8497769966690016110
 MonoBehaviour:
   m_ObjectHideFlags: 0

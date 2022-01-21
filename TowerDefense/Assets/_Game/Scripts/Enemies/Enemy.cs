@@ -14,9 +14,9 @@ namespace Game.Enemies
     {
         #region FIELDS
 
-        private const float FreezeDuration = 1f;
-        private const float BurnDuration = 2f;
-        private const float BurnDamage = 2f;
+        private const float FreezeDuration = 2f;
+        private const float BurnDuration = 5f;
+        private const float BurnDamage = 4f;
 
         [Inject] private GameManager gameManager;
 
@@ -31,6 +31,8 @@ namespace Game.Enemies
         private float defaultMovementSpeed;
         private List<Transform> waypoints = new List<Transform>();
         private int currentWaypointIndex = 1;
+        private bool isBurning = false;
+        private float burnTime;
 
         #endregion
 
@@ -43,7 +45,16 @@ namespace Game.Enemies
 
         private void Update()
         {
+            CheckHealth();
             Movement();
+
+            if (isBurning)
+            {
+                health -= BurnDamage * Time.deltaTime;
+                burnTime -= Time.deltaTime;
+                if (burnTime <= 0)
+                    isBurning = false;
+            }
         }
 
         public void SetWaypointsTrace(Transform waypointsContainer)
@@ -55,11 +66,7 @@ namespace Game.Enemies
         public void Damage(float damage, ProjectileEffect projectileEffect)
         {
             health -= damage;
-            if (health <= 0.0f)
-            {
-                gameManager.IncreaseCoins(enemyCoins);
-                Destroy(gameObject);
-            }
+            CheckHealth();
 
             switch (projectileEffect)
             {
@@ -71,8 +78,8 @@ namespace Game.Enemies
                     }
                 case ProjectileEffect.Burn:
                     {
-                        StopCoroutine(StartBurnEffect());
-                        StartCoroutine(StartBurnEffect());
+                        isBurning = true;
+                        burnTime = BurnDuration;
                         break;
                     }
             }
@@ -85,24 +92,6 @@ namespace Game.Enemies
             movementSpeed = defaultMovementSpeed;
         }
 
-        private IEnumerator StartBurnEffect()
-        {
-            float time = BurnDuration;
-            while (time <= 0)
-            {
-                if (health <= 0.0f)
-                {
-                    time = 0;   
-                    gameManager.IncreaseCoins(enemyCoins);
-                    Destroy(gameObject);
-                }
-
-                time--;
-                yield return new WaitForSeconds(1f);
-                health -= BurnDamage;
-            }
-        }
-
         private void Movement()
         {
             transform.position = Vector3.MoveTowards(transform.position, waypoints[currentWaypointIndex].position, movementSpeed * Time.deltaTime);
@@ -112,6 +101,15 @@ namespace Game.Enemies
                     return;
 
                 currentWaypointIndex++;
+            }
+        }
+
+        private void CheckHealth()
+        {
+            if (health <= 0.0f)
+            {
+                gameManager.IncreaseCoins(enemyCoins);
+                Destroy(gameObject);
             }
         }
 

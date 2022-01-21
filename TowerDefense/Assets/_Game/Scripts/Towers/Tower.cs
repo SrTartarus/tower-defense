@@ -56,7 +56,7 @@ namespace Game.Towers
             Transform nearestEnemy = null;
             foreach (Transform enemy in enemies)
             {
-                if (enemy.gameObject.layer == ignoreLayer)
+                if (HasLayer(ignoreLayer, enemy.gameObject.layer))
                     continue;
 
                 float distanceToEnemy = Vector3.Distance(transform.position, enemy.transform.position);
@@ -77,6 +77,11 @@ namespace Game.Towers
         {
             GameObject projectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
             projectile.GetComponent<Projectile>().SetTarget(enemy.GetComponent<Enemy>());
+        }
+
+        private bool HasLayer(LayerMask mask, int layer)
+        {
+            return mask == (mask | (1 << layer));
         }
 
         #endregion
