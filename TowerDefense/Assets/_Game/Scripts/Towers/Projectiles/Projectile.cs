@@ -5,6 +5,7 @@ using Game.Towers.Projectiles.Enums;
 
 namespace Game.Towers.Projectiles.Abstracts
 {
+    // This class is attached to a Projectile GameObject prefab
     public class Projectile : MonoBehaviour
     {
         #region FIELDS
@@ -30,7 +31,7 @@ namespace Game.Towers.Projectiles.Abstracts
 
         #region BEHAVIORS
 
-        protected virtual void Update()
+        private void Update()
         {
             if (enemy == null)
             {
@@ -38,9 +39,11 @@ namespace Game.Towers.Projectiles.Abstracts
                 return;
             }
 
+            // Follow the nearest enemy target found
             FollowTarget();
         }
 
+        // Setting the nearest enemy target
         public void SetTarget(Enemy enemy)
         {
             this.enemy = enemy;
@@ -48,6 +51,7 @@ namespace Game.Towers.Projectiles.Abstracts
             EnemyPosition = new Vector3(enemyPosition.x, enemyPosition.y, enemyPosition.z);
         }
 
+        // Follow the nearest enemy target found
         private void FollowTarget()
         {
             Vector3 moveDirection = (EnemyPosition - transform.position).normalized;

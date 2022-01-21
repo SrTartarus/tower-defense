@@ -3,6 +3,7 @@ using UnityEngine.Events;
 
 namespace Game.Managers
 {
+    // This Manager has authority to handle gameplay variables
     public class GameManager : MonoBehaviour
     {
         #region FIELDS
@@ -18,6 +19,7 @@ namespace Game.Managers
 
         #region EVENTS
 
+        // Events to call changes on UI
         public event UnityAction onHealthDecreased;
         public event UnityAction onCoinsChanged;
         public event UnityAction onPlayerWon;
@@ -34,11 +36,13 @@ namespace Game.Managers
 
         #region BEHAVIORS
 
+        // Appearing Congratulations Window
         public void PlayerWon()
         {
             onPlayerWon?.Invoke();
         }
 
+        // Decreasing health and updating UI
         public void DecreaseHealth()
         {
             if (health <= 0)
@@ -50,12 +54,14 @@ namespace Game.Managers
                 onPlayerLose?.Invoke();
         }
 
+        // Increasing coins and updating UI
         public void IncreaseCoins(int quantity)
         {
             coins += quantity;
             onCoinsChanged?.Invoke();
         }
 
+        // Decreasing coins and updating UI
         public void DecreaseCoins(int quantity)
         {
             coins -= quantity;

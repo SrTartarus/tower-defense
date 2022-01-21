@@ -2,6 +2,7 @@ using UnityEngine;
 
 namespace Game.Enviroment
 {
+    // This class is a tower slot where player can build
     public class Slot : MonoBehaviour
     {
         #region FIELDS
@@ -31,11 +32,13 @@ namespace Game.Enviroment
             index = transform.GetSiblingIndex();
         }
 
+        // Changing enable material
         public void SelectSlot()
         {
             renderer.material = selectedMaterial;
         }
 
+        // Changing disable material
         public void DeselectSlot()
         {
             renderer.material = deselectedMaterial;

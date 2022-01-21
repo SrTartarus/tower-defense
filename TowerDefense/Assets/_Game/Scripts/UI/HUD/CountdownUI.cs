@@ -7,6 +7,7 @@ using Game.Managers;
 
 namespace Game.UI.HUD
 {
+    // This Class is attached to a GameObject UI
     public class CountdownUI : MonoBehaviour
     {
         #region FIELDS
@@ -24,6 +25,7 @@ namespace Game.UI.HUD
             countdownText = GetComponent<TextMeshProUGUI>();
         }
 
+        // Updating countdown from waves manager
         private void Update()
         {
             countdownText.text = wavesManager.WaveCountDown.ToString();

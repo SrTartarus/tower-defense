@@ -5,6 +5,7 @@ using Zenject;
 
 namespace Game.Managers
 {
+    // This is manager enables inventory UI where player can build new towers on each slot
     public class BuildingManager : MonoBehaviour
     {
         #region FIELDS
@@ -33,6 +34,7 @@ namespace Game.Managers
                 slots.Add(slot);
         }
 
+        // Builiding from UI a new Tower
         public void BuildTowerOnCurrentSlot(int towerIndex)
         {
             GameObject tower = Instantiate(towersPrefab[towerIndex], slots[currentSlotIndex]);
@@ -40,12 +42,14 @@ namespace Game.Managers
             clickManager.CleanLastObject();
         }
 
+        // Enable inventory tower UI
         public void EnableInventory(int index)
         {
             currentSlotIndex = index;
             inventoryObject.SetActive(true);
         }
 
+        // Disable inventory tower UI
         public void DisableInventory()
         {
             inventoryObject.SetActive(false);

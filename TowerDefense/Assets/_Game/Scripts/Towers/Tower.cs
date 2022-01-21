@@ -9,6 +9,7 @@ using Game.Towers.Projectiles.Abstracts;
 
 namespace Game.Towers
 {
+    // This class is attached to a Tower GameObject prefab
     public class Tower : MonoBehaviour
     {
         #region BEHAVIORS
@@ -41,6 +42,7 @@ namespace Game.Towers
                 return;
             }
 
+            // Shooting with a fire rate
             shootTimer -= Time.deltaTime;
             if (shootTimer <= 0f)
             {
@@ -49,6 +51,7 @@ namespace Game.Towers
             }
         }
 
+        // Finding a new target to shoot
         private void FindTarget()
         {
             Transform[] enemies = wavesManager.EnemiesContainer.Cast<Transform>().ToArray();
@@ -73,12 +76,14 @@ namespace Game.Towers
                 target = null;
         }
 
+        // Instantiate a new Projectile
         private void CreateProjectile(Transform enemy)
         {
             GameObject projectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
             projectile.GetComponent<Projectile>().SetTarget(enemy.GetComponent<Enemy>());
         }
 
+        // Ignoring enemies with a Magic Inmune layer
         private bool HasLayer(LayerMask mask, int layer)
         {
             return mask == (mask | (1 << layer));

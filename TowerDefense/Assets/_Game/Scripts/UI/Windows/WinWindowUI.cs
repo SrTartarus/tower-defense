@@ -4,6 +4,7 @@ using UnityEngine.SceneManagement;
 
 namespace Game.UI.Windows
 {
+    // This class is a congralution window
     public class WinWindowUI : MonoBehaviour
     {
         #region FIELDS
@@ -20,9 +21,10 @@ namespace Game.UI.Windows
             continueButton.onClick.AddListener(Continue);
         }
 
+        // Pressing continue button will go back to Map
         private void Continue()
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            SceneManager.LoadScene("Map");
         }
 
         #endregion

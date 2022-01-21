@@ -10,6 +10,7 @@ using Game.Towers.Projectiles.Enums;
 
 namespace Game.Enemies
 {
+    // This class is attached to a Enemy GameObject prefab
     public class Enemy : MonoBehaviour, IEnemy
     {
         #region FIELDS
@@ -23,8 +24,10 @@ namespace Game.Enemies
         [Header("PROPERTIES")]
         [SerializeField]
         private float health = 100f;
+
         [SerializeField]
         private float movementSpeed = 4;
+
         [SerializeField]
         private int enemyCoins = 100;
 
@@ -45,9 +48,12 @@ namespace Game.Enemies
 
         private void Update()
         {
+            // Check if player has not health
             CheckHealth();
+            // Enemy movement
             Movement();
 
+            // Enemy starts burning
             if (isBurning)
             {
                 health -= BurnDamage * Time.deltaTime;
@@ -57,12 +63,14 @@ namespace Game.Enemies
             }
         }
 
+        // Set wich way enemy needs to follow
         public void SetWaypointsTrace(Transform waypointsContainer)
         {
             foreach (Transform waypoint in waypointsContainer.transform)
                 waypoints.Add(waypoint);
         }
 
+        // Taking damage with our without effect
         public void Damage(float damage, ProjectileEffect projectileEffect)
         {
             health -= damage;
@@ -85,6 +93,7 @@ namespace Game.Enemies
             }
         }
 
+        // Enemy starts freezing (movement speed reduced)
         private IEnumerator StartFreezeEffect()
         {
             movementSpeed = defaultMovementSpeed / 2;
@@ -92,6 +101,7 @@ namespace Game.Enemies
             movementSpeed = defaultMovementSpeed;
         }
 
+        // Enemey movement
         private void Movement()
         {
             transform.position = Vector3.MoveTowards(transform.position, waypoints[currentWaypointIndex].position, movementSpeed * Time.deltaTime);
@@ -104,6 +114,7 @@ namespace Game.Enemies
             }
         }
 
+        // Check if player has not health
         private void CheckHealth()
         {
             if (health <= 0.0f)

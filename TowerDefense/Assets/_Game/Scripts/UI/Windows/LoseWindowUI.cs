@@ -4,6 +4,7 @@ using UnityEngine.SceneManagement;
 
 namespace Game.UI.Windows
 {
+    // This Class enables Lose window
     public class LoseWindowUI : MonoBehaviour
     {
         #region FIELDS
@@ -24,11 +25,13 @@ namespace Game.UI.Windows
             retryButton.onClick.AddListener(Retry);
         }
 
+        // Pressing continue button will go back to Map
         private void Continue()
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            SceneManager.LoadScene("Map");
         }
 
+        // Pressing retry button will reload the scene to start again
         private void Retry()
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);

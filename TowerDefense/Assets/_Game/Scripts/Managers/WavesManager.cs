@@ -9,6 +9,7 @@ using Game.Enemies;
 
 namespace Game.Managers
 {
+    // This Class can create waves of enemies
     public class WavesManager : MonoBehaviour
     {
         #region FIELDS
@@ -60,12 +61,17 @@ namespace Game.Managers
             if (isAllWavesCompleted)
                 return;
 
-            if (enemiesContainer.childCount <= 0 && isFirstWaveStarted && wavesNumber >= maximumWaves)
+            // Checking multiples condition
+            // 1.- if all enemies were died
+            // 2.- check if player has completed all waves
+            // 2.- if we start the first wave
+            if (enemiesContainer.childCount <= 0 && isFirstWaveStarted && wavesNumber > maximumWaves)
             {
                 isAllWavesCompleted = true;
                 gameManager.PlayerWon();
             }
 
+            // Checking for a new wave
             countdown -= Time.deltaTime;
             if (countdown <= 0f)
             {
@@ -75,6 +81,7 @@ namespace Game.Managers
             }
         }
 
+        // Spawn a new wave of enemies
         private IEnumerator SpawnWave()
         {
             isFirstWaveStarted = true;
@@ -87,11 +94,13 @@ namespace Game.Managers
             wavesNumber++;
         }
 
+        // Instantiate a enemy prefab
         private void SpawnEnemy()
         {
             var random = Random.Range(0, enemiesPrefab.Count);
-            GameObject enemy = Instantiate(enemiesPrefab[random], waypointsContainer.GetChild(0).position, Quaternion.identity, enemiesContainer);
-            enemy.GetComponent<Enemy>().SetWaypointsTrace(waypointsContainer);
+            var randomTrace = Random.Range(0, waypointsContainer.childCount);
+            GameObject enemy = Instantiate(enemiesPrefab[random], waypointsContainer.GetChild(randomTrace).GetChild(0).position, Quaternion.identity, enemiesContainer);
+            enemy.GetComponent<Enemy>().SetWaypointsTrace(waypointsContainer.GetChild(randomTrace));
         }
 
         #endregion

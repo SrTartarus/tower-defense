@@ -7,6 +7,7 @@ using Game.Managers;
 
 namespace Game.UI.HUD
 {
+    // This Class is attached to a GameObject UI
     public class TowerButtonUI : MonoBehaviour
     {
         #region FIELDS
@@ -23,6 +24,7 @@ namespace Game.UI.HUD
 
         #region BEHAVIORS
 
+        // Subscring to onCoinsChanged to set interactable button
         private void Awake()
         {
             gameManager.onCoinsChanged += UpdateButton;
@@ -30,11 +32,13 @@ namespace Game.UI.HUD
             towerButton.onClick.AddListener(CreateTower);
         }
 
+        // Setting button with default values
         private void Start()
         {
             UpdateButton();
         }
 
+        // Creating a tower on CurrentSlot
         private void CreateTower()
         {
             buildingManager.BuildTowerOnCurrentSlot(transform.GetSiblingIndex());
@@ -46,6 +50,7 @@ namespace Game.UI.HUD
             towerButton.interactable = gameManager.Coins >= towerCost;
         }
 
+        // Unsubscring to onCoinsChanged to set interactable button
         private void OnDestroy()
         {
             gameManager.onCoinsChanged -= UpdateButton;
