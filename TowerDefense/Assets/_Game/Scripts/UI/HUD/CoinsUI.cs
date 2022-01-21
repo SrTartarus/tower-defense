@@ -21,7 +21,7 @@ namespace Game.UI.HUD
 
         private void OnEnable()
         {
-            gameManager.onHealthDecreased += UpdateCoins;
+            gameManager.onCoinsChanged += UpdateCoins;
         }
 
         private void Awake()
@@ -41,7 +41,7 @@ namespace Game.UI.HUD
 
         private void UpdateCoins()
         {
-            coinsText.text = string.Format("Coins: {0}", gameManager.Health);
+            coinsText.text = string.Format("Coins: {0}", gameManager.Coins);
         }
 
         #endregion

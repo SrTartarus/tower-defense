@@ -1,8 +1,9 @@
+using Game.Towers.Projectiles.Enums;
+
 namespace Game.Enemies.Interfaces
 {
     public interface IEnemy
     {
-        void Damage(float damage);
-        void AddMagicEffect();
+        void Damage(float damage, ProjectileEffect projectileEffect);
     }
 }

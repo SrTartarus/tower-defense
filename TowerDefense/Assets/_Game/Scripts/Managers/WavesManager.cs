@@ -47,6 +47,7 @@ namespace Game.Managers
 
         #region PROPERTIES
 
+        public Transform EnemiesContainer { get => enemiesContainer; }
         public int WaveCountDown { get => (int)countdown; }
         public int MaximumWaves { get => maximumWaves; }
 

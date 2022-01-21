@@ -9,12 +9,20 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3964125685066735840, guid: 197de141dfd79474983b70a50f318108, type: 3}
       propertyPath: m_Name
-      value: magic-tower
+      value: fire-tower
+      objectReference: {fileID: 0}
+    - target: {fileID: 3964125685066735842, guid: 197de141dfd79474983b70a50f318108, type: 3}
+      propertyPath: sphereRadius
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 3964125685066735842, guid: 197de141dfd79474983b70a50f318108, type: 3}
       propertyPath: projectilePrefab
       value: 
-      objectReference: {fileID: 5518287154445617624, guid: 6757b58288ad547a9bad0ee821fe8c2a, type: 3}
+      objectReference: {fileID: 6351194855095013961, guid: b8c758fa9de384dbf96bcbbf6bc098c1, type: 3}
+    - target: {fileID: 3964125685066735842, guid: 197de141dfd79474983b70a50f318108, type: 3}
+      propertyPath: ignoreLayer.m_Bits
+      value: 64
+      objectReference: {fileID: 0}
     - target: {fileID: 3964125685066735843, guid: 197de141dfd79474983b70a50f318108, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -59,5 +67,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3964125685066735852, guid: 197de141dfd79474983b70a50f318108, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: e514e06b66a3b43c3b538dd0f2996d84, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 197de141dfd79474983b70a50f318108, type: 3}
