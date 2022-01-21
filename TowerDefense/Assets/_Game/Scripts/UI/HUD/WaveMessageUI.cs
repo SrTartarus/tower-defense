@@ -1,11 +1,11 @@
 using UnityEngine;
-using UnityEngine.UI;
 
+using TMPro;
 using Zenject;
 
 using Game.Managers;
 
-namespace Game.UI
+namespace Game.UI.HUD
 {
     public class WaveMessageUI : MonoBehaviour
     {
@@ -14,7 +14,7 @@ namespace Game.UI
         [Inject] private WavesManager wavesManager;
 
         [SerializeField]
-        private Text messageText;
+        private TextMeshProUGUI messageText;
 
         #endregion
 

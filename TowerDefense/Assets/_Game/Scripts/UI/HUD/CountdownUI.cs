@@ -1,11 +1,11 @@
 using UnityEngine;
-using UnityEngine.UI;
 
+using TMPro;
 using Zenject;
 
 using Game.Managers;
 
-namespace Game.UI
+namespace Game.UI.HUD
 {
     public class CountdownUI : MonoBehaviour
     {
@@ -13,7 +13,7 @@ namespace Game.UI
 
         [Inject] private WavesManager wavesManager;
 
-        private Text countdownText;
+        private TextMeshProUGUI countdownText;
 
         #endregion
 
@@ -21,7 +21,7 @@ namespace Game.UI
 
         private void Awake()
         {
-            countdownText = GetComponent<Text>();
+            countdownText = GetComponent<TextMeshProUGUI>();
         }
 
         private void Update()

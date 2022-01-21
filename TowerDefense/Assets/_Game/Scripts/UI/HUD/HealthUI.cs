@@ -1,11 +1,11 @@
 using UnityEngine;
-using UnityEngine.UI;
 
+using TMPro;
 using Zenject;
 
 using Game.Managers;
 
-namespace Game.UI
+namespace Game.UI.HUD
 {
     public class HealthUI : MonoBehaviour
     {
@@ -13,7 +13,7 @@ namespace Game.UI
 
         [Inject] private GameManager gameManager;
 
-        private Text healthText;
+        private TextMeshProUGUI healthText;
 
         #endregion
 
@@ -26,7 +26,7 @@ namespace Game.UI
 
         private void Awake()
         {
-            healthText = GetComponent<Text>();
+            healthText = GetComponent<TextMeshProUGUI>();
         }
 
         private void Start()

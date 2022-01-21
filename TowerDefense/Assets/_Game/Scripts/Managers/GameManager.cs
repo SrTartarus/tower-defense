@@ -36,6 +36,9 @@ namespace Game.Managers
 
         public void DecreaseHealth()
         {
+            if (health <= 0)
+                return;
+
             health--;
             onHealthDecreased?.Invoke();
             if (health <= 0)
