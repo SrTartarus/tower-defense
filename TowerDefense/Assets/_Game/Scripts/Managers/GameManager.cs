@@ -11,11 +11,15 @@ namespace Game.Managers
         [SerializeField]
         private int health = 20;
 
+        [SerializeField]
+        private int coins = 150;
+
         #endregion
 
         #region EVENTS
 
         public event UnityAction onHealthDecreased;
+        public event UnityAction onCoinsChanged;
         public event UnityAction onPlayerWon;
         public event UnityAction onPlayerLose;
 
@@ -24,6 +28,7 @@ namespace Game.Managers
         #region PROPERTIES
 
         public int Health { get => health; }
+        public int Coins { get => coins; }
 
         #endregion
 
@@ -43,6 +48,18 @@ namespace Game.Managers
             onHealthDecreased?.Invoke();
             if (health <= 0)
                 onPlayerLose?.Invoke();
+        }
+
+        public void IncreaseCoins(int quantity)
+        {
+            coins += quantity;
+            onCoinsChanged?.Invoke();
+        }
+
+        public void DecreaseCoins(int quantity)
+        {
+            coins -= quantity;
+            onCoinsChanged?.Invoke();
         }
 
         #endregion
